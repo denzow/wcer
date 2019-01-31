@@ -1,4 +1,4 @@
-declare type Options = { port: number, manifest: string }
+declare type Options = { port: number, manifest: string, host: string }
 declare interface Source {
   source();
   size(): number;

@@ -12,12 +12,14 @@ let manifestTimestamp: number
 
 export default class ReloadPlugin extends AbstractPlugin {
   private port: number
+  private host: string
   private server: Server | null = null
   private manifest: Manifest
   private manifestPath: string
-  constructor({port, manifest}: Options) {
+  constructor({port, manifest, host}: Options) {
     super();
-    this.port = port || 9090 
+    this.port = port || 9090
+    this.host = host || 'localhost'
     this.manifestPath = manifest || null
   }
   sourceFactory(...sources): Source {
@@ -25,7 +27,7 @@ export default class ReloadPlugin extends AbstractPlugin {
   } 
   watcher (comp, done) {
     if(!this.server && this.manifestPath) {
-      this.server = new Server(this.port)
+      this.server = new Server(this.port, this.host)
     }
     return done()
   }
